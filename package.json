@@ -10,9 +10,14 @@
 		"Other"
 	],
 	"activationEvents": [
-		"*"
+		"onCommand:efratfirstextension.helloWorld",
+		"onCommand:something.h",
+		"onLanguage:plaintext",
+		"onLanguage:text"
 	],
-	"main": "./out/extension.js",
+	
+	"main":"./out/extension.js",
+
 	"contributes": {
 		"commands": [
 			{
@@ -24,8 +29,6 @@
 				"title": "good"
 			}
 		]
-
-		
 	},
 	"scripts": {
 		"vscode:prepublish": "npm run compile",
