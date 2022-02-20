@@ -6,13 +6,13 @@ import { provider1,provider2 } from './copy';
 
 import { class_c,bootstrap_c } from './completion_class';
 
-import a from ''
-var dataArray = JSON.parse(fs.readFileSync('data.json', 'utf-8'));
+
 
 export function activate(context: vscode.ExtensionContext) {
 	console.log('Congratulations, your extension "efratfirstextension" is now active!');
 
-
+	const a= require('C:\Users\212796643\Desktop\Quick-design-VSCode-libraries\src\read.json');
+	
 
     const _pushGood=pushGood();
 	const _pushName=pushName();
