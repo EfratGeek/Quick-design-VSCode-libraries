@@ -15,9 +15,7 @@
 		"onLanguage:plaintext",
 		"onLanguage:text"
 	],
-	
-	"main":"./out/extension.js",
-
+	"main": "./out/extension.js",
 	"contributes": {
 		"commands": [
 			{
@@ -29,86 +27,51 @@
 				"title": "good"
 			}
 		]
-
 	},
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	
 	"configuration": [
 		{
-		  "title": "IntelliSense for CSS class names in HTML",
-		  "properties": {
-
-			"html-css-class-completion.excludeGlobPattern": {
-				"type": "string",
-				"default": "",
-				"description": "A glob pattern that defines files and folders to exclude. The glob pattern will be matched against the file paths of resulting matches relative to their workspace."
-			  },
-			  "html-css-class-completion.enableEmmetSupport": {
-				"type": "boolean",
-				"default": false,
-				"description": "Enables completion when you're writing Emmet abbreviations."
-			  },
-			  "html-css-class-completion.HTMLLanguages": {
-				"type": "array",
-				"description": "A list of HTML based languages where suggestions are enabled.",
-				"default": [
-				  "html",
-				  "vue",
-				  "razor",
-				  "blade",
-				  "handlebars",
-				  "twig",
-				  "django-html",
-				  "php",
-				  "markdown",
-				  "erb",
-				  "ejs",
-				  "svelte"
-				]
-			  },
-
-			  "html-css-class-completion.JavaScriptLanguages": {
-				"type": "array",
-				"description": "A list of JavaScript based languages where suggestions are enabled.",
-				"default": [
-				  "javascript",
-				  "javascriptreact",
-				  "typescriptreact"
-				]
-			  }
+			"title": "IntelliSense for CSS class names in HTML",
+			"properties": {
+				"html-css-class-completion.excludeGlobPattern": {
+					"type": "string",
+					"default": "",
+					"description": "A glob pattern that defines files and folders to exclude. The glob pattern will be matched against the file paths of resulting matches relative to their workspace."
+				},
+				"html-css-class-completion.enableEmmetSupport": {
+					"type": "boolean",
+					"default": false,
+					"description": "Enables completion when you're writing Emmet abbreviations."
+				},
+				"html-css-class-completion.HTMLLanguages": {
+					"type": "array",
+					"description": "A list of HTML based languages where suggestions are enabled.",
+					"default": [
+						"html",
+						"vue",
+						"razor",
+						"blade",
+						"handlebars",
+						"twig",
+						"django-html",
+						"php",
+						"markdown",
+						"erb",
+						"ejs",
+						"svelte"
+					]
+				},
+				"html-css-class-completion.JavaScriptLanguages": {
+					"type": "array",
+					"description": "A list of JavaScript based languages where suggestions are enabled.",
+					"default": [
+						"javascript",
+						"javascriptreact",
+						"typescriptreact"
+					]
+				}
 			}
-		  }
-		],
-	  
-
-
-
-
-
-
-
-
-
-
-
-
+		}
+	],
 	"scripts": {
 		"vscode:prepublish": "npm run compile",
 		"compile": "tsc -p ./",
