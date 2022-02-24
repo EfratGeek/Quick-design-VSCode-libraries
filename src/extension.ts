@@ -5,18 +5,21 @@ import { pushGood, pushName } from './subscriptions';
 import { provider1,provider2 } from './copy';
 
 import { class_c,bootstrap_c } from './completion_class';
+import { read } from 'fs';
 
-
+//const p= require('./read.json');
+//const c=p.read();
 
 export function activate(context: vscode.ExtensionContext) {
 	console.log('Congratulations, your extension "efratfirstextension" is now active!');
-
-	const a= require('C:\Users\212796643\Desktop\Quick-design-VSCode-libraries\src\read.json');
+	//console.log(require('./read.json').a[0]);
 	
 
-    const _pushGood=pushGood();
-	const _pushName=pushName();
-	//const _complet=provider();
+    // const _pushGood= 
+	pushGood();
+	// const _pushName=
+	pushName();
+	// const _complet=provider();
 	// const _prov1=provider1();
 	// const _prov2=provider2();
 	// const _prov3=provider3();
@@ -35,6 +38,7 @@ export function activate(context: vscode.ExtensionContext) {
 	list1.forEach(element => {
 	bootstrap_c(element);
 	});
+
 
 	
 

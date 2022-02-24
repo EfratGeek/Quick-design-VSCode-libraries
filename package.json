@@ -28,6 +28,9 @@
 			}
 		]
 	},
+
+
+
 	"configuration": [
 		{
 			"title": "IntelliSense for CSS class names in HTML",
@@ -72,6 +75,9 @@
 			}
 		}
 	],
+
+
+	
 	"scripts": {
 		"vscode:prepublish": "npm run compile",
 		"compile": "tsc -p ./",
