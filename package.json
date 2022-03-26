@@ -9,10 +9,21 @@
 	"categories": [
 		"Other"
 	],
+	
+
+	"keywords": [
+		"html",
+		"css",
+		"class",
+		"autocomplete",
+		"multi-root ready"
+	  ],
+
+
 	"activationEvents": [
 		"onCommand:efratfirstextension.helloWorld",
 		"onCommand:something.h",
-		"onLanguage:plaintext",
+		"onLanguage:javascript",
 		"onLanguage:text"
 	],
 	"main": "./out/extension.js",
@@ -31,50 +42,7 @@
 
 
 
-	"configuration": [
-		{
-			"title": "IntelliSense for CSS class names in HTML",
-			"properties": {
-				"html-css-class-completion.excludeGlobPattern": {
-					"type": "string",
-					"default": "",
-					"description": "A glob pattern that defines files and folders to exclude. The glob pattern will be matched against the file paths of resulting matches relative to their workspace."
-				},
-				"html-css-class-completion.enableEmmetSupport": {
-					"type": "boolean",
-					"default": false,
-					"description": "Enables completion when you're writing Emmet abbreviations."
-				},
-				"html-css-class-completion.HTMLLanguages": {
-					"type": "array",
-					"description": "A list of HTML based languages where suggestions are enabled.",
-					"default": [
-						"html",
-						"vue",
-						"razor",
-						"blade",
-						"handlebars",
-						"twig",
-						"django-html",
-						"php",
-						"markdown",
-						"erb",
-						"ejs",
-						"svelte"
-					]
-				},
-				"html-css-class-completion.JavaScriptLanguages": {
-					"type": "array",
-					"description": "A list of JavaScript based languages where suggestions are enabled.",
-					"default": [
-						"javascript",
-						"javascriptreact",
-						"typescriptreact"
-					]
-				}
-			}
-		}
-	],
+	
 
 
 	
