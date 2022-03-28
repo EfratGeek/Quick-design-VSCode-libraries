@@ -1,21 +1,36 @@
 //import { waitForDebugger } from 'inspector';
 import * as vscode from 'vscode';
-import { provider,provider3 ,provider4 ,provider5, provider7} from './provider';
+import { provider, provider3, provider4, provider5, provider7 } from './provider';
 import { pushGood, pushName } from './subscriptions';
-import { provider1,provider2 } from './copy';
+import { provider1, provider2 } from './copy';
 
-import { class_c,bootstrap_c } from './completion_class';
-import { read } from 'fs';
+import { class_c, bootstrap_c } from './completion_class';
 
-//const p= require('./read.json');
-//const c=p.read();
+import colorsJson from './read.json';
+
 
 export function activate(context: vscode.ExtensionContext) {
 	console.log('Congratulations, your extension "efratfirstextension" is now active!');
-	//console.log(require('./read.json').a[0]);
-	
 
-    // const _pushGood= 
+	console.log(colorsJson.a);
+
+	//console.log('Caaaa '+ JSON.parse(colorsJson.a[0]));
+
+
+
+
+	let i = 0;
+	while(colorsJson){
+		
+	}
+	class_c();
+	var list1 = ['a', 'b', 'c', 'd', 'e'];
+	list1.forEach(element => {
+		bootstrap_c(element);
+	});
+
+
+	// const _pushGood= 
 	pushGood();
 	// const _pushName=
 	pushName();
@@ -31,16 +46,6 @@ export function activate(context: vscode.ExtensionContext) {
 	// provider3();
 	// provider4();
 	// provider5();
-	
-	
-	class_c();
-	var list1=['a','b','c','d','e'];
-	list1.forEach(element => {
-	bootstrap_c(element);
-	});
-
-
-	
 
 	//context.subscriptions.push(
 	// 	//_complet,

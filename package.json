@@ -1,6 +1,6 @@
 {
 	"name": "efratfirstextension",
-	"displayName": "EfratFirstExtension",
+	"displayName": "quick style",
 	"description": "",
 	"version": "0.0.1",
 	"engines": {
@@ -16,15 +16,14 @@
 		"css",
 		"class",
 		"autocomplete",
-		"multi-root ready"
+		"bootstrap"
 	  ],
 
 
 	"activationEvents": [
 		"onCommand:efratfirstextension.helloWorld",
 		"onCommand:something.h",
-		"onLanguage:javascript",
-		"onLanguage:text"
+		"onLanguage:html"
 	],
 	"main": "./out/extension.js",
 	"contributes": {

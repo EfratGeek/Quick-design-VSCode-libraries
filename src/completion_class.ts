@@ -19,7 +19,7 @@ export function class_c() {return vscode.languages.registerCompletionItemProvide
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 export function bootstrap_c(item:string) {return vscode.languages.registerCompletionItemProvider(
-    'javascript',
+    'html',
     {
          provideCompletionItems(document: vscode.TextDocument, position: vscode.Position) {
 
@@ -28,7 +28,7 @@ export function bootstrap_c(item:string) {return vscode.languages.registerComple
                 return undefined;
             }
             return [
-                new vscode.CompletionItem(item+'"', vscode.CompletionItemKind.Text),
+                new vscode.CompletionItem(item , vscode.CompletionItemKind.Text),
                 //new vscode.CompletionItem(item, vscode.CompletionItemKind.Text),
 
             ];
