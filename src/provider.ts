@@ -58,7 +58,7 @@ export function provider4() {return vscode.languages.registerCompletionItemProvi
 );} 
 
 export function provider5() {return vscode.languages.registerCompletionItemProvider(
-    'plaintext',
+    'html',
     {
          provideCompletionItems(document: vscode.TextDocument, position: vscode.Position, token: vscode.CancellationToken, context: vscode.CompletionContext) {
 

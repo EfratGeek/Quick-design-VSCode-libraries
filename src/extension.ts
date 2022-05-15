@@ -4,7 +4,7 @@ import { provider, provider3, provider4, provider5, provider7 } from './provider
 import { pushGood, pushName } from './subscriptions';
 import { provider1, provider2 } from './copy';
 
-import { class_c, bootstrap_c } from './completion_class';
+import { class_c, bootstrap_c, bootstrap_a } from './completion_class';
 
 import colorsJson from './read.json';
 
@@ -19,15 +19,17 @@ export function activate(context: vscode.ExtensionContext) {
 
 
 
-	let i = 0;
-	while(colorsJson){
+	// let i = 0;
+	// while(colorsJson){
 		
-	}
+	// }
 	class_c();
 	var list1 = ['a', 'b', 'c', 'd', 'e'];
 	list1.forEach(element => {
 		bootstrap_c(element);
+		bootstrap_a(element);
 	});
+
 
 
 	// const _pushGood= 
