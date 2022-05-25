@@ -5,23 +5,17 @@ import { pushGood, pushName } from './subscriptions';
 import { provider1, provider2 } from './copy';
 
 import { class_c, bootstrap_c, bootstrap_a } from './completion_class';
-import CompletionClass from './Json/class/CompletionClass';
-import colorsJson from './Json/bootstrap.json';
+import CompletionClass from './class/CompletionClass';
+
 
 
 export function activate(context: vscode.ExtensionContext) {
 	console.log('Congratulations, your extension "efratfirstextension" is now active!');
-	let c = new CompletionClass();
-
-	//console.log('Caaaa '+ JSON.parse(colorsJson.a[0]));
-
+	console.log(CompletionClass.getBootStyle(6));
+	
 
 
 
-	// let i = 0;
-	// while(colorsJson){
-		
-	// }
 	class_c();
 	var list1 = ['a', 'b', 'c', 'd', 'e'];
 	list1.forEach(element => {

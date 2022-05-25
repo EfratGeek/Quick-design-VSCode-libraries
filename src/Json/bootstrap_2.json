@@ -1,0 +1,13 @@
+{
+    "bootstrap": {
+        "accordion-body": 0,
+        "accordion-button": 1,
+        "accordion-collapse": 2,
+        "accordion-flush": 3,
+        "accordion-header": 4,
+        "accordion-item": 5,
+        "active": 6,
+        "alert": 7,
+        "alert-danger": 8
+    }
+}
