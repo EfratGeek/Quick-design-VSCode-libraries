@@ -1,4 +1,6 @@
 import * as vscode from 'vscode';
+import CompletionClass from "./class/CompletionClass";
+
 
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
@@ -40,7 +42,7 @@ export function bootstrap_c(item: string) {
 }
 
 
-export function bootstrap_a(item: string) {
+export function bootstrap_a(tagName:string, className: string) {
     return vscode.languages.registerCompletionItemProvider(
         'html',
         {
@@ -49,11 +51,11 @@ export function bootstrap_a(item: string) {
                 const linePrefix = document.lineAt(position).text.substr(0, position.character);
 
                 // אם המילה הזו נמצאת בתוך השורה שעליו עומדים
-                if (!linePrefix.includes("div_a")) {
+                if (!linePrefix.includes(tagName)) {
                     return undefined;
                 }
                 return [
-                    new vscode.CompletionItem(item, vscode.CompletionItemKind.Text)
+                    new vscode.CompletionItem(className, vscode.CompletionItemKind.Text)
                 ];
             },
 
@@ -61,6 +63,9 @@ export function bootstrap_a(item: string) {
 
     );
 }
+
+
+
 
 // export function bootstrap_נ(item: string) {
 //     return vscode.languages.registerCompletionItemProvider(
