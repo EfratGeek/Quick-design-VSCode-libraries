@@ -1,100 +1,73 @@
-//import { waitForDebugger } from 'inspector';
 import * as vscode from 'vscode';
-import { provider, provider3, provider4, provider5, provider7 } from './provider';
-import { pushGood, pushName } from './subscriptions';
-import { provider1, provider2 } from './copy';
-
-import { class_c, bootstrap_c, bootstrap_a } from './completion_class';
+import { completeClass } from './completion_class';
 import CompletionClass from './class/CompletionClass';
-import { type } from 'os';
 
-import { isTag } from './completion'; 
 
-//check params
-// function _Params(...lists: any[]){
-// 	for (let index = 0; index < lists.length; index++) {
-// 		lists[index].forEach(elem =>{
-// 			console.log(elem);
-// 		});
-// 	}
-// }
-
-export function activate(context: vscode.ExtensionContext) {
+export function activate() {
 	console.log('Congratulations, your extension "efratfirstextension" is now active!');
-	//check params
-	let l1 = [1,2,3,4];
-	let l2 = [3,1,2,4];
-	let l3 = [2,4,3,1];
-	// _Params(l1,l2,l3);
-	//stop
-	// CompletionClass.getListTags().forEach(elem => console.log(elem));
-	// console.log(CompletionClass.getListOfTag('div'));
-	// console.log(CompletionClass.getListOfTag('div'));
-	// let x = CompletionClass.getListOfTag('button');
-	// x.forEach(elem => console.log(elem));
-	// console.log(CompletionClass.findBigStyle(CompletionClass.getDictBootString()));
-	// console.log(CompletionClass.findBigStyle(CompletionClass.getDictBootString()));
-	// console.log(CompletionClass.getListOfBoot("accordion-collapse"));
+	return vscode.languages.registerCompletionItemProvider(
+        '*',
+        {
+            provideCompletionItems(document: vscode.TextDocument, position: vscode.Position){
+                // const start: vscode.Position = new vscode.Position(position.line, 0);
+                // const range: vscode.Range = new vscode.Range(start, position);
+                // const text: string = document.getText(range);
+                const linePrefix = document.lineAt(position).text.substring(0, position.character);
+                const rawClasses: RegExpMatchArray | null = linePrefix.match(/class=["|']([\w- ]*$)/);
+                if (!rawClasses) {
+                    //|| rawClasses.length === 1
+                    return [];
+                }
 
+                let listClass = rawClasses[1].split(' ');
+                let bootListClass: string[] = [];
+                listClass.forEach(_class =>{
+                    if(CompletionClass.isInBootstrap(_class)){
+                        bootListClass.push(_class);
+                    }
+                });
 
+				let _list: String[][]  = [];
 
-	// for (let key in x){
-	// 	for (let i in x[key]){
-	// 		console.log(x[key][i]);
-	// 	}
-	// }
+				for(let key in bootListClass){
+					_list.push(CompletionClass.getListByNumber(CompletionClass.getListOfBoot(bootListClass[key])));
+				}
 
-		// x.div?.forEach(el =>console.log(el ));
-	// console.log(x);
+                let compList:vscode.CompletionItem[] = [];
 
-	// CompletionClass.getListTags().forEach(elem =>{
-	// 	isTag(elem, CompletionClass.getListOfTag(elem));
-	// });
+                CompletionClass.getListTags().forEach(tag =>{        
 
-	class_c();
-	// var list1 = ['r', 'b', 'c', 'd', 'e'];
-	// list1.forEach(element => {
-	// 	bootstrap_c(element);
-	// 	// bootstrap_a(element);
-	// });
-	
-	// let y = CompletionClass.getBootStyle(2);
-	// bootstrap_c(String(y));
-	let _list = CompletionClass.getListByNumber(CompletionClass.getListOfTag('form'));
-	let _list2 = CompletionClass.getListByNumber(CompletionClass.getListOfBoot("accordion-collapse"));
-	for (let key in _list){
-		// bootstrap_c(_list[key]);
-		bootstrap_c(String(_list2[key]));
-		console.log(_list2[key]);
-	}
+                    if(linePrefix.includes('<'+tag +' ')){       
+                        let tagList = CompletionClass.getListByNumber(CompletionClass.getListOfTag(tag)); 
+						_list.push(tagList);
+						let extendList = CompletionClass.getExtendList(_list);
 
-	
-	// const _pushGood= 
-	pushGood();
-	// const _pushName=
-	pushName();
-	// const _complet=provider();
-	// const _prov1=provider1();
-	// const _prov2=provider2();
-	// const _prov3=provider3();
-	// const _prov4=provider4();
-	// const _prov5=provider5();
-	// provider();
-	// provider1();
-	// provider2();
-	// provider3();
-	// provider4();
-	// provider5();
+                        for (let key in extendList){
+                            let item = new vscode.CompletionItem(extendList[key],vscode.CompletionItemKind.Variable);
+                            item.sortText = String(key);
+                            compList.push(item);
+                        }
+                    }
+                });  
 
-	//context.subscriptions.push(
-	// 	//_complet,
-	// 	// _pushGood,
-	// 	// _pushName,
-	// 	// _prov1,
-	// 	// _prov2,
-	// 	// _prov3
-	//);
+                if(compList.length === 0)
+                {
+					if(_list.length === 0){
+						_list.push(CompletionClass.getListByNumber(CompletionClass.getListOfTag('div')));
+					}
+					let extendList = CompletionClass.getExtendList(_list);
+                    for (let key in extendList){
+                        let item = new vscode.CompletionItem(extendList[key],vscode.CompletionItemKind.Variable);
+                        item.sortText = String(key);
+                        compList.push(item);
+                    }
+                }        
 
+                return new vscode.CompletionList(compList);
+            }
+        }
+    );
+	// CompletionClass.getExtendList(CompletionClass.getListByNumber(CompletionClass.getListOfTag('div')),CompletionClass.getListByNumber(CompletionClass.getListOfTag('form')));
 }
 
 // this method is called when your extension is deactivated

@@ -1,5 +1,3 @@
-import { removeListener } from 'cluster';
-import { removeAllListeners } from 'process';
 import Bootstrap from '../Json/bootstrap.json';
 import Bootstrap2 from '../Json/bootstrap_2.json';
 import GraphBoot from '../Json/GraphBoot.json';
@@ -48,7 +46,7 @@ class CompletionClass {
 
     // get name class of key specific.
     // if is not a valid number of key, retutm null.
-    static getBootStyle(num: number) {
+    static getBootStyle(num: number) : string | null{
         if (num > 1754 || num < 0) {
             return null;
         }
@@ -62,6 +60,16 @@ class CompletionClass {
                 return CompletionClass.dictBootString[key];
             }
         }
+        return null;
+    }
+
+    static isInBootstrap(style: string){
+        for (let key in CompletionClass.dictBootNum) {
+            if (key === style) {
+                return true;
+            }
+        }
+        return false;
     }
 
     static getListTags() {
@@ -83,9 +91,17 @@ class CompletionClass {
                 }
             }
         }
+        // console.log(list_);
         for (let key in list_) {
-            for (let i in list_[key]) {
-                list.push(list_[key][i]);
+            // // console.log(list_[[]]);
+            //     // .valueOf().constructor(list_.valueOf()));
+            // console.log(list_.valueOf().key);
+            // for (let i in list_.valueOf(key)) {
+            //     console.log(i);
+            //     list.push(i);
+            // }
+            for (let i in list_[[key]]) {
+                list.push(list_[[key]][i]);
             }
         }
         return list;
@@ -101,8 +117,8 @@ class CompletionClass {
             }
         }
         for (let key in list_) {
-            for (let i in list_[key]) {
-                list.push(list_[key][i]);
+            for (let i in list_[[key]]) {
+                list.push(list_[[key]][i]);
             }
         }
         return list;
@@ -118,8 +134,8 @@ class CompletionClass {
             }
         }
         for (let key in list_) {
-            for (let i in list_[key]) {
-                list.push(list_[key][i]);
+            for (let i in list_[[key]]) {
+                list.push(list_[[key]][i]);
             }
         }
         return list;
@@ -140,10 +156,12 @@ class CompletionClass {
     }
 
     static getListByNumber(list: Array<Number>) {
-        let dict = CompletionClass.dictBootNum;
+        let dict: {[index: string]: number;} = CompletionClass.dictBootNum;
         let _list = [];
         for (let index = 0; index < list.length; index++) {
-            dict[CompletionClass.getBootStyle(index)] = Number(list[index]);
+            if(CompletionClass.getBootStyle(index) !== null){
+                dict[String(CompletionClass.getBootStyle(index))] = Number(list[index]);
+            }            
         }
         let style = this.findBigStyle(dict);
         while (style) {
@@ -153,13 +171,28 @@ class CompletionClass {
         return _list;
     }
 
-    static getExtendList(...lists: Array<Number>){
-        let dict = {};
+    static getExtendList(lists: String[][]){
+        let dict: {[index: string]: number; } = {};
+        let bootList = CompletionClass.getListByNumber(CompletionClass.getListOfTag('div'));
+        bootList.forEach(style =>{
+            dict[style] = 0;
+        });
         for (let index = 0; index < lists.length; index++) {
-                            
+            for(let key in lists[index]){
+                dict[String(lists[index][key])] += Number(key);
+            }
         }
-    }
-
+        
+        let _list = [];   
+        let style = this.findBigStyle(dict);
+        while (style) {
+            _list.push(style);
+            style = CompletionClass.findBigStyle(dict);
+        }
+        let straightList: string[] = _list.reverse();
+        // console.log(straightList);
+        return straightList;
+    }    
 }
 
 export default CompletionClass;

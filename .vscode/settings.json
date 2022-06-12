@@ -8,5 +8,9 @@
     },
     // Turn off tsc task auto detection since we have the necessary tasks as npm scripts
     "typescript.tsc.autoDetect": "off",
-    "compile-hero.disable-compile-files-on-did-save-code": true
+    "compile-hero.disable-compile-files-on-did-save-code": true,
+    "editor.snippetSuggestions": "bottom",
+"editor.suggest.localityBonus": true,
+"editor.suggest.filterGraceful": true,
+"editor.suggest.snippetsPreventQuickSuggestions": true,
 }

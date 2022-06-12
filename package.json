@@ -23,10 +23,13 @@
 	"activationEvents": [
 		"onCommand:efratfirstextension.helloWorld",
 		"onCommand:something.h",
-		"onLanguage:html"
+		"onLanguage:html",
+		"onLanguage:javascript",
+		"onLanguage:typescript"
 	],
 	"main": "./out/extension.js",
 	"contributes": {
+
 		"commands": [
 			{
 				"command": "efratfirstextension.helloWorld",
