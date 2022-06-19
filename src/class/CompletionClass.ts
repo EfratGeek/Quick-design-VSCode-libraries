@@ -91,7 +91,7 @@ class CompletionClass {
                 }
             }
         }
-        console.log(list_);
+        // console.log(list_);
         for (let key in list_) {
             // // console.log(list_[[]]);
             //     // .valueOf().constructor(list_.valueOf()));
