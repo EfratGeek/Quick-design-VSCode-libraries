@@ -51,10 +51,6 @@ class CompletionClass {
             return null;
         }
         // delete on right:
-        if (num > 8 || num < 0) {
-            return null;
-        }
-
         for (let key in CompletionClass.dictBootString) {
             if (Number(key) === num) {
                 return CompletionClass.dictBootString[key];

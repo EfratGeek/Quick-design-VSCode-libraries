@@ -10,52 +10,66 @@ export function activate() {
         '*',
         {
             provideCompletionItems(document: vscode.TextDocument, position: vscode.Position) {
-                // const start: vscode.Position = new vscode.Position(position.line, 0);
-                // const range: vscode.Range = new vscode.Range(start, position);
-                // const text: string = document.getText(range);
-                
 
+                const page = document.getText(new vscode.Range(new vscode.Position(0, 0), new vscode.Position(position.line, 0)));
 
-                let regEnd = /<\/(\w*)>/;
-                let regStart = /<(\w*)>/;
-                let end: boolean = false;
-
-                let page = document.getText(new vscode.Range(new vscode.Position(0, 0), new vscode.Position(position.line, 0)));
-                
-                let emptyTags = ['base','area','br','col','command','embed','hr','img','input','keygen','link','meta','param','source','track','wbr'];
+                const emptyTags = ['base', 'area', 'br', 'col', 'command', 'embed', 'hr', 'img', 'input', 'keygen', 'link', 'meta', 'param', 'source', 'track', 'wbr'];
                 let charTag = [];
                 // check the children/
                 let cl = '';
                 let end_ = '';
                 let in_: number = 0;
                 let stack: Array<string> = [];
+                let t = false;
+                let tt = '';
+                let body = 0;
                 for (let index = 0; index < page.length; index++) {
-                    // debugger;
-                    // console.log(page[index], index);
-                    if (page[index] === '>') {
-                        // if(stack[stack.length-1] === '>'){}
-                        // else{
-                            stack.push(page[index]);
-                        // }
+                    if (page[index] === '<'
+                        && page[index + 1] === 'b'
+                        && page[index + 2] === 'o'
+                        && page[index + 3] === 'd'
+                        && page[index + 4] === 'y') {
+                        body = index;
                     }
+                }
+                for (let index = body; index < page.length; index++) {
 
                     if (page[index] === '<') {
 
                         if (page[index + 1] === '/') {
                             end_ += '</';
                             stack.push(end_);
-                            end_ ='';
+                            end_ = '';
                         }
                         else {
-                            emptyTags.forEach(elemnt=>{
-                                charTag = elemnt.split('');
-                                charTag.forEach(elem=>{
-                                    
-                                });
-                            });
                             stack.push(page[index]);
+                            for (let i = index + 1; i < index + 10; i++) {
+                                // if (page[i] !== ' ' || page[i] !== '>') {
+                                if (page[i] !== ' ') {
+                                    if (page[i] !== '>') {
+                                        tt += page[i];
+                                    }
+                                    else {
+                                        break;
+                                    }
+                                }
+                                else {
+                                    break;
+                                }
+                            }
+                            emptyTags.forEach(elemnt => {
+                                if (elemnt === tt) {
+                                    t = true;
+                                }
+                            });
+                            // console.log(tt);
+                            tt = '';
+
 
                             for (let j = index; j < page.length; j++) {
+                                if (page[j] === '>') {
+                                    break;
+                                }
                                 if (page[j] === 'c' && page[j + 1] === 'l' && page[j + 2] === 'a' && page[j + 3] === 's' && page[j + 4] === 's' && page[j + 5] === '=' && page[j + 6] === '"') {
                                     for (let k = j + 7; k < page.length; k++) {
                                         if (page[k] !== '"') {
@@ -69,13 +83,56 @@ export function activate() {
                                     index = in_;
                                     stack.push(cl);
                                     cl = '';
+
                                     break;
                                 }
                             }
                         }
+                        if (t) {
+                            stack.push('</');
+                            t = false;
+                        }
                     }
                 }
                 console.log(stack);
+                let _list: String[][] = [];
+                let str = '';
+                let count = 0;
+                let s1 = 0;
+
+                for (let s = stack.length - 1; s >= 0; s--) {
+                    if (stack[s] === '</') {
+                        count++;
+                    }
+                    else {
+                        if (stack[s] === '<') {
+                            count--;
+                            s1 = s + 1;
+                            if (stack[s1] === '</') {
+                                str = '';
+                            }
+                            if (stack[s1] === '<') {
+                                str = '';
+                            }
+                        }
+                        else {
+                            str = stack[s];
+                        }
+                    }
+                    if (count === -1) {
+                        break;
+                    }
+                }
+                console.log(str);
+
+                let children = str.split(' ');
+                let bootListClass: string[] = [];
+                children.forEach(_class =>{
+                    if (CompletionClass.isInBootstrap(_class)) {
+                        bootListClass.push(_class);
+                    }
+                });
+
 
                 // bring the line till the current Location
                 const linePrefix = document.lineAt(position).text.substring(0, position.character);
@@ -91,7 +148,7 @@ export function activate() {
 
                 // if yes put in list the class if empty will not put anything.
                 let listClass = rawClasses[1].split(' ');
-                let bootListClass: string[] = [];
+
                 // put in new list jast classes existing in bootstrap.
                 listClass.forEach(_class => {
                     if (CompletionClass.isInBootstrap(_class)) {
@@ -99,7 +156,7 @@ export function activate() {
                     }
                 });
 
-                let _list: String[][] = [];
+
                 // put in _list lists of completion.
                 for (let key in bootListClass) {
                     _list.push(CompletionClass.getListByNumber(CompletionClass.getListOfBoot(bootListClass[key])));
