@@ -103,6 +103,7 @@ class CompletionClass {
         return list;
     }
 
+
     static getListOfBoot(style: string) {
         let list_, list = [];
         for (let key in CompletionClass.graphBoot) {
@@ -115,6 +116,7 @@ class CompletionClass {
         for (let key in list_) {
             for (let i in list_[[key]]) {
                 list.push(list_[[key]][i]);
+
             }
         }
         return list;
